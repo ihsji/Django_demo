@@ -20,6 +20,6 @@ from django.urls import path,include
 from app01.views import helloworld,article_create,article_detail,phone_detail
 urlpatterns = [
     path('account/',include("account.urls")),
-    path("acticle/",include("app01.urls")),
+    path("article/",include("app01.urls")),
     path("admin/", admin.site.urls),
 ]

@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "account",
+    "app01"
 ]
 
 MIDDLEWARE = [
@@ -73,12 +75,28 @@ WSGI_APPLICATION = "demo.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+##------------------------------------------------- 默认数据库配置文件--------------------------------------------------------
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+##------------------------------------------------- 默认数据库配置文件--------------------------------------------------------
+
+##-------------------------------------------------自定义数据库文件-------------------------
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "django_demo",
+        "HOST":"192.168.2.105",
+        "PORT":3307,
+        'USER':'root',
+        'PASSWORD':'6159527@Hsj'
     }
 }
+
+
 
 
 # Password validation
@@ -103,9 +121,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
-
-TIME_ZONE = "UTC"
+# LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE="zh-hans"
+# TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Shanghai"
 
 USE_I18N = True
 
