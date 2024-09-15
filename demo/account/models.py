@@ -10,3 +10,6 @@ class User(BaseModels):
     class Meta:
         db_table = 'user'
         verbose_name = '用户信息'
+
+    def __str__(self):
+        return self.username

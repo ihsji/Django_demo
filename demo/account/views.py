@@ -10,7 +10,7 @@ def login(request):
         password=request.POST.get("password","")
         return HttpResponse(f"使用POST方式提交用户名：{username} 密码：{password}")
     if request.method=="GET":
-        return render(request,"laccount_login.html")
+        return render(request,"account_login.html")
 
 class RegisterView(View):
     def get(self,request):

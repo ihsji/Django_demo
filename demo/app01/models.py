@@ -4,6 +4,7 @@ from utils.basemodels import BaseModels
 # Create your models here.
 class Article(BaseModels):
     id = models.AutoField(primary_key=True)
+    id2 = models.BigAutoField(primary_key=True)
     title = models.CharField(max_length=120)
     content = models.TextField()
     publish_date = models.DateTimeField()
