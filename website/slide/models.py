@@ -1,12 +1,12 @@
+from distutils.command.upload import upload
 from django.db import models
 
 # Create your models here.
 class Slide(models.Model):
     id = models.AutoField(primary_key=True)
-    image = models.ImageField('幻灯片', upload_to='media', help_text="最佳尺寸为1920.*1080" )
-    title = models.CharField("标题", max_length = 200, help_text="一级标题" )
-    content = models.CharField("内容", max_length=200, help_text="二级标题" )
-
+    image = models.ImageField('幻灯片名字', upload_to='slide', help_text='最佳尺寸:1920*1280')
+    title = models.CharField('标题', max_length=200,help_text='一级标题')
+    content = models.CharField('内容', max_length=200, help_text='二级标题')
 
     class Meta:
         db_table = 'slide'

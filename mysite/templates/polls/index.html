@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>这是polls应用下index.html文件的主页</p>
+    {% for ques in question %}
+    <div>
+        <a href="{% url 'polls:detail' ques.id %}">
+            {{ ques.question_text }}
+        </a>
+        
+        <ul>
+                <li>{{ choice.choice_text }}</li>
+        </ul>
+    </div>
+    {% endfor %}
+    
+</body>
+</html>
