@@ -12,9 +12,8 @@
         <a href="{% url 'polls:detail' ques.id %}">
             {{ ques.question_text }}
         </a>
-        
         <ul>
-                <li>{{ choice.choice_text }}</li>
+            <li>{{ choice.choice_text }}</li>
         </ul>
     </div>
     {% endfor %}
