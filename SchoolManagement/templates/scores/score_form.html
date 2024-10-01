@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>大熊课堂校园管理系统</title>
+  <link rel="stylesheet" href="static/css/base.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  <link rel="stylesheet" href="static/css/iconfont.css">
+  <link rel="stylesheet" href="static/css/sweetalert2.css">
+  <link rel="stylesheet" href="static/css/form.css">
+  <script src="static/js/sweetalert2.js" ></script>
+
+</head>
+<body>
+	  <div class="container">
+    
+        <h2>添加学生成绩</h2>
+    
+    <form method="post">
+        <input type="hidden" name="csrfmiddlewaretoken" value="UOnxOIIGDUogx4wRED1WmJR62zBxeP0Q1rMBrtbAL5Nla90CQzMDZvN8rwuPtRqu">
+        
+        <div class="form-group">
+            <label for="id_title">考试名称:</label>
+            <input type="text" name="title" maxlength="20" required aria-describedby="id_title_helptext" id="id_title">
+        </div>
+        
+        <div class="form-group">
+            <label for="id_student_name">姓名:</label>
+            <input type="text" name="student_name" maxlength="20" required aria-describedby="id_student_name_helptext" id="id_student_name">
+        </div>
+        
+        <div class="form-group">
+            <label for="id_student_number">学号:</label>
+            <input type="text" name="student_number" maxlength="20" required id="id_student_number">
+        </div>
+        
+        <div class="form-group">
+            <label for="id_grade">班级:</label>
+            <select name="grade" required id="id_grade">
+  <option value="" selected>请选择班级</option>
+
+  <option value="6">1年2班</option>
+
+  <option value="7">1年3班</option>
+
+  <option value="8">1年1班</option>
+
+  <option value="9">1年4班</option>
+
+  <option value="10">1年5班</option>
+
+</select>
+        </div>
+        
+        <div class="form-group">
+            <label for="id_chinese_score">语文分数:</label>
+            <input type="number" name="chinese_score" step="0.01" required aria-describedby="id_chinese_score_helptext" id="id_chinese_score">
+        </div>
+        
+        <div class="form-group">
+            <label for="id_math_score">数学分数:</label>
+            <input type="number" name="math_score" step="0.01" required aria-describedby="id_math_score_helptext" id="id_math_score">
+        </div>
+        
+        <div class="form-group">
+            <label for="id_english_score">英语分数:</label>
+            <input type="number" name="english_score" step="0.01" required aria-describedby="id_english_score_helptext" id="id_english_score">
+        </div>
+        
+        <div class="handleButton">
+            <button type="submit" id="saveButton">保存</button>
+            <button type="button" id="cancelButton" onclick="window.parent.Swal.close();">取消</button>
+        </div>
+    </form>
+</div>
+ 

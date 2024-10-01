@@ -1,0 +1,77 @@
+{% extends 'base.html' %} 
+{% block contect %}
+<div class="right">
+    <div class="top">
+        <div class="tool">
+            <div class="class-info">
+                <form method="get" action="{% url 'teachers_list' %}">
+                    <span>班级:</span>
+                    <select name="grade">
+                        <option value="" selected="">请选择班级</option>
+                        {% for grade in grades %}
+                            <option value="{{ grade.pk }}" {% if grade.pk|stringformat:"s" == current_grade %}selected{% endif %}>
+                                {{ grade.grade_name }}
+                            </option>
+                        {% endfor %}
+                        
+                    </select>
+                    <span>姓名/电话:</span>
+                    <input type="text" name="search">
+                    <input type="submit" value="搜索">
+                    <a href="javascript:;">
+                        <button type="button" class="add" id="add">新增</button>
+                    </a>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="bottom">
+        <table>
+            <thead>
+                <tr>
+                    <th><input type="checkbox" id="select-all"></th>
+                    <th>班级</th>
+                    <th>姓名</th>
+                    <th>性别</th>
+                    <th>手机号</th>
+                    <th>生日</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for teacher in teachers %}
+                <tr>
+                    <td><input type="checkbox" name="teacher_ids" value="{{ teacher.id }}"></td>
+                    <td>{{ teacher.grade.grade_name }}</td>
+                    <td>{{ eacher.teacher_name }}</td>
+                    <td>{{ teacher.get_gender_display }}</td>
+                    <td>{{ teacher.phone_number }}</td>
+                    <td>{{ teacher.birthday|date:"Y-m-d" }}</td>
+                    <td>
+                        <a href="" class="btn btn-primary btn-sm edit">编辑</a>
+                        <a href="" class="btn btn-danger btn-sm del">删除</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+        <div class="pagination">
+            <div>
+                <div>
+                    <!-- <span>页码： 1</span> -->
+                    <span>第1页/共1页</span>
+                    
+                    
+                    
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+</div>
+{% endblock %} 

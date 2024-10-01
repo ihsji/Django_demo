@@ -1,0 +1,117 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>大熊课堂校园管理系统</title>
+  
+  <link rel="stylesheet" href="static/css/base.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  <link rel="stylesheet" href="static/css/iconfont.css">
+  <link rel="stylesheet" href="static/css/sweetalert2.css">
+  <script src="static/js/sweetalert2.js" ></script>
+
+</head>
+<body>
+<div class="wrapper">
+  <div class="left">
+      <div class="head">
+        <a href="/students/">
+          <h2>学生管理系统</h2>
+        </a>
+      </div>
+      <div class="profile">
+          欢迎 [ 黄伟 ]
+          
+            同学
+          
+      </div>
+      <div class="content">
+          <ul>
+            
+            
+            
+              <li><span class="iconfont icon-bianji"></span>
+                <a href="/scores/my_scores">成绩列表</a>
+              </li>
+            
+              <li><span class="iconfont icon-bianji"></span>
+                <a href="/change_password/">修改密码</a>
+              </li>
+              <li><span class="iconfont icon-shangchuan"></span>
+                <a href="/logout/">退出登录</a>
+              </li>
+          </ul>
+      </div>
+  </div>
+
+  
+<div class="right">
+    <h2 style="text-align: center; padding: 10px;"> 黄伟  成绩列表</h2>
+    <div class="bottom">
+        <table>
+            <thead>
+                <tr>
+                    <th><input type="checkbox" id="select-all"></th>
+                    <th>考试名称</th>
+                    <th>姓名</th>
+                    <th>班级</th>
+                    <th>学号</th>
+                    <th>语文</th>
+                    <th>数学</th>
+                    <th>英语</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                <tr>
+                    <td><input type="checkbox" name="score_ids" value="26"></td>
+                    <td>1年级期中考试</td>
+                    <td>黄伟</td>
+                    <td>1年1班</td>
+                    <td>G610198201612242535</td>
+                    <td>67.00</td>
+                    <td>80.00</td>
+                    <td>70.00</td>
+                    <td>
+                        <a href="/scores/detail/26/" class="text-detail"> 查看</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td><input type="checkbox" name="score_ids" value="33"></td>
+                    <td>1年级期末考试</td>
+                    <td>黄伟</td>
+                    <td>1年1班</td>
+                    <td>G610198201612242535</td>
+                    <td>94.00</td>
+                    <td>87.00</td>
+                    <td>77.00</td>
+                    <td>
+                        <a href="/scores/detail/33/" class="text-detail"> 查看</a>
+                    </td>
+                </tr>
+                
+            </tbody>
+        </table>
+        <div class="pagination">
+            <div>
+                <div>
+                    <span>第1页/共1页</span>
+                    
+                    
+                    
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+</div>
+</body>
+</html>    

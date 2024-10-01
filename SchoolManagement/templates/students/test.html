@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<body>
+        <tr>
+        <td>这是一个弹出按钮</td>
+        <td>
+            <button type="button" class="add" id="add">新增</button>
+        </td>
+    </tr>
+</body>
+<script>
+    document.getElementById("add").addEventListener("click",function(){
+        Swal.fire({
+            icon: "success",
+            title: "Oops...",
+            text: "Something went wrong!",
+            footer: '<a href="#">Why do I have this issue?</a>'
+            });
+    });
+</script>
+</html>

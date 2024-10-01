@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-minimal@4/minimal.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+</head>
+<body>
+    <div>
+        <button id="click-me">点我一下</button>
+    </div>
+    <script type="text/javascript">
+        document.getElementById('click-me').addEventListener('click',function(){
+            Swal.fire("SweeAler2 is working");
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<script>
+    document.addEventListener('DOMContentLoaded',function(){
+        setupFormHandlers();
+        setupActionButtonHandlers();
+
+    })
+
+
+function setupFormHandlers(){
+    //处理表单提交
+    const searchForm = document.querySelector('.search-form');
+    searchForm.addEventListener('submit',function(event){
+        //envent.preventDefault();
+        const formData = FormData(searchForm);
+    });
+
+    //全选
+    const selectAllcheckbox = document.getElementById("select-all");
+    selectAllcheckbox.addEventListener('change',function(){
+        const checkboxes = document.querySelector('input[name="score_ids"]');
+        checkboxes.forEach(checkbox =>{
+            checkbox.checked = selectAllcheckbox.checked;
+        });
+    });
+}
+
+function setupActionButtonHandlers(){
+    //新增按钮
+    document.getElementById('add').addEventListener('click',function(){
+        showIframe("{% url 'score_create' %}")
+    })
+
+    //绑定单个编辑和删除按钮事件
+    document.querySelectorAll('edit','btn-danger').forEach(button =>{
+        button.addEventListener('click',function(event){
+            event.preventDefault();//阻止默认行为
+            if (this.classList.contains('edit')){
+                showIframe(this.href);
+            }else{
+                confirmDelete(this.href);
+            }
+        });
+    });
+   
+}
+
+function showIframe(url){
+    Swal.fire({
+        position:'top-end',
+        html:`<iframe src="${url}" style="width:100%;height:800px;border:none;"></iframe>`,
+        width:600,
+        showConfirmButton:false
+    });
+}
+
+function confirmDelete(url){
+    Swal.fire({
+        title:'确认删除',
+        icon:'warring',
+        showConfirmButton:true,
+        confirmButtonText:'删除',
+        confirmButtonColor:'#d33'
+    }).then((resule)=>{
+        if (resule.isConfirmed){
+            fetch(url,{
+                method:"POST",
+                headers:{
+                    'x-Requested':'XMLHttpRequest',
+                    'X-CSRFToken':'{{ csrf_token }}'
+                }
+            }).then(response => response.json())
+                .then(data => {
+                    if (data.status == 'success'){
+                        Swal.fire('DElete!',data.messages,'success');
+                        window.location.reload();//刷新页面
+                    }else{
+                        Swal.fire("Error!",data.messages,'error');
+                    }
+                });
+        }
+    });
+}
+
+
+
+
+</script>
