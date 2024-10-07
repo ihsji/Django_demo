@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -164,13 +165,13 @@ DJOSER = {
     'SET_PASSWORD_RETYPE': True,
     'SERIALIZERS': {
         "user_create": "account.serializers.CustomUserCreateSerializer",
-    }
+    },
 }
+
+
 
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT',),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),  # 设置访问令牌的生命周期
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=14),   # 设置刷新令牌的生命周期
 }
-
-from datetime import timedelta
-JWT_ACCESS_TOKEN_EXPIRE_MINUTES = 60
-JWT_REFRESH_TOKEN_EXPIRE_DAYS = timedelta(days=14)
