@@ -3,7 +3,7 @@
       <div class="w-full px-2" style="max-width:1440px;">
           <div id="movie-list" class="p-2 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
             <div class="movie" v-for="movie in info.results" :key="movie.id">
-                <a href="/detail/443">
+                <a :href="'/movie/'+movie.id">
                     <div class="relative">
                         <div style="min-height:259px;max-height:300px;height:274px">
                         <img :src="movie.image_url" alt="" class="rounded h-full w-full" referrerPolicy="no-referrer">                 
@@ -45,11 +45,32 @@ import Page from '@/components/Page.vue'
 
         methods:{
             get_movie_data:function() {
-                let url = '/api/movie'
+                let url = '/api/movie'       
                 const page = Number(this.$route.query.page)
-                if(!isNaN(page)&&(page!==0)){
-                    url =url+'/?page='+page;
+                const search = this.$route.query.search;
+                const region = this.$route.query.region
+                const category_id = this.$route.query.category_id
+
+                const params = new URLSearchParams();
+                
+                if (page){
+                    params.append('page',page);
                 }
+                if(search){
+                    params.append("movie_name",search);
+                }
+                if(region){
+                    params.append("region ",region );
+                }   if(category_id){
+                    params.append("category_id",category_id);
+                }
+
+                // if(!isNaN(page)&&(page!==0)){
+                //     url =url+'/?page='+page;
+                // }
+                console.log(params)
+                url = url +"?"+params.toString();
+          
                 axios.get(url)
                     .then(Response => (this.info = Response.data))
                     .catch(error => {

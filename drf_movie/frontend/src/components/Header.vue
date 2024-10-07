@@ -6,29 +6,22 @@
             <a href="/">
               <img  src="../assets/images/logo.png" style="height:39px" >
             </a>
-            <div id="nav" class="px-4">
-              <ul class="hidden md:flex items-center space-x-4 ml-2">
-                <li>
-                    <a href="/">首页</a>
-                </li>
-                <li>热门</li>
-                <li>电影</li>
-                <li>电视剧</li>
-                <li>综艺</li>
-                <li>动漫</li>
-                <li>纪录片</li>
-                <li>短片</li>
-              </ul>
-            </div>
+            <Category/>
           </div>
           <div class="flex items-center space-x-2">
             <!-- 搜索 -->
             <div class="relative shrink">
                 <form>
-                    <input type="text" name="keyword" class="outline-0 h-9 rounded bg-primary-700 border border-gray-600 placeholder-gray-400 w-64 px-2 py-1 max-w-[180px]" placeholder="请输入关键词" value="">
+                    <input 
+                        v-model="keyword" 
+                        type="text" 
+                        name="keyword" 
+                        class="outline-0 h-9 rounded bg-primary-700 border border-gray-600 placeholder-gray-400 w-64 px-2 py-1 max-w-[180px]" 
+                        placeholder="请输入关键词" 
+                        value="">
                     <div class="absolute top-0 right-0 flex items-center h-full">
                         <div class="rounded text-xs text-gray-400 px-2 mr-2">
-                            <button>
+                            <button @click.prevent="searchMovies">
                                 <svg xmlns="http://www.w3.org/20 00/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                                 </svg>
@@ -38,9 +31,33 @@
                 </form>
             </div>
             <!-- 登录和注册 -->
-            <div class="text-white flex-shrink-0 pr-2">
-                <a href="#">登录</a>
-                / <a href="#">注册</a>
+            <div v-if="$store.state.isLogin" @click="toggleMenu" class="flex relative hover: cursor-pointer items-center justify-center rounded border border-solid text-white text-lg h-9 text-center">
+              <div id="username" class="px-2">{{ username }}</div>
+              <div class="pr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>       
+              </div>
+              <div :class="{hidden:!showMenu}" id="userinfo_menu" class="absolute top-[40px] w-32 transition ease-in-out delay-150 z-50">
+                <ul class="bg-primary-700 py-2 px-4 text-sm">
+                  <li class="plx-2 py-2">
+                    <a href="/personal">个人中心</a>
+                  </li>
+                  <li class="plx-2 py-2">
+                    <a href="/collect">我的收藏</a>
+                  </li>
+                  <li class="plx-2 py-2">
+                    <a href="/orders">我的订单</a>
+                  </li>
+                  <li class="plx-2 py-2">
+                    <router-link to="/" v-on:click.prevent="logout()">退出</router-link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div v-else class="text-white flex-shrink-0 pr-2">
+                <a href="/login">登录</a>
+                / <a href="/register">注册</a>
             </div>
           </div>
         </div>
@@ -49,7 +66,62 @@
 </template>
 
 <script>
+import Category from './Category.vue';
+import axios from 'axios'
+
 export default {
     name: 'Header',
-}
+    components:{ Category },
+    data(){
+      return{keyword:"", username:"", showMenu:false, }
+    },
+    mounted(){
+      this.username =localStorage.getItem("username");
+      //判断登陆状况
+      const currenTime = Date.now();
+      const expiredTime = localStorage.getItem("expiredTime");
+      const refreshToken = localStorage.getItem("refreshToken")
+
+      if (expiredTime > currenTime){
+        this.$store.commit('setLoginStatus',true)
+      }else if(refreshToken){
+        axios
+        .post('/api/jwt/refresh/',{fefresh: refreshToken})
+        .then((response) => {
+          console.log('执行refresh')
+          const token = response.data.access
+          localStorage.setItem('token',token)
+          //更新过期时间
+          const expiredTime = Date.now() +5 *60 *1000
+          localStorage.setItem("expireadTime",expireadTime)
+          this.$store.commit('setLoginStatus',true)
+        })
+        .catch(error => {
+          console.log(error)
+          this.$store.commit('setLoginStatus',false)
+          localStorage.clear()
+        })
+      }else {
+        this.$store.commit("setLoginStatus", false);
+        localStorage.clear()
+      }
+    },
+    methods:{
+      searchMovies(){
+        const keyword =this.keyword.trim();//去除空格
+        this.$router.push({
+          name:'home',
+          query:{search:keyword}
+        })
+      },
+      //切换展示和隐藏
+      toggleMenu(){
+        this.showMenu = !this.showMenu;
+      },
+      logout(){
+        localStorage.clear();
+        this.$store.commit("setLoginStatus", false);
+      }
+    },
+};
 </script>

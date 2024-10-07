@@ -11,11 +11,32 @@ from rest_framework.views import APIView
 from rest_framework import generics
 from rest_framework import mixins
 from rest_framework import viewsets
+from django_filters import rest_framework as filters
+from django_filters.rest_framework import DjangoFilterBackend
 
 # 从当前目录下导入Movie模型和MovieListSerializer序列化器
-from .models import Movie
-from .serializers import MovieSerializer
+from movie.models import Movie,Category
+from movie.serializers import MovieSerializer,CategorySerializer
 
+
+class MovieFilter(filters.FilterSet):
+    movie_name=filters.CharFilter(lookup_expr='icontains')
+    category_id = filters.NumberFilter()
+    region = filters.NumberFilter()
+
+    class Meta:
+        model=Movie
+        fields = ['movie_name','category_id','region']
+
+
+# 创建filter过滤器，用于搜索电影名称
 class MovieViewSet(viewsets.ModelViewSet):
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class=MovieFilter
+
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer

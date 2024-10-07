@@ -92,7 +92,10 @@ export default {
     },
     goToPage(page) {
       this.current = page;
-      this.$router.push({ query: { page } });
+      //获取当前参数
+      const params = {...this.$route.query };
+      params.page = page;
+      this.$router.push({ query: params });
     },
   },
 };
