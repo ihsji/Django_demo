@@ -7,6 +7,8 @@ import Login from '@/views/Login.vue'
 import ResetPassword from "@/views/ResetPassword.vue"
 import PasswordReset from "@/views/PasswordReset.vue"
 import store from '@/store'
+import Personal from '../views/Personal.vue'
+import ChangePassword from '../views/ChangePassword.vue'
 
 const routes = [
   {//首页

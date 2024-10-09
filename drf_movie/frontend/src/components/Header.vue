@@ -93,7 +93,7 @@ export default {
           localStorage.setItem('token',token)
           //更新过期时间
           const expiredTime = Date.now() +5 *60 *1000
-          localStorage.setItem("expireadTime",expireadTime)
+          localStorage.setItem("expireadTime",expiredTime)
           this.$store.commit('setLoginStatus',true)
         })
         .catch(error => {
@@ -118,6 +118,7 @@ export default {
       toggleMenu(){
         this.showMenu = !this.showMenu;
       },
+      //退出
       logout(){
         localStorage.clear();
         this.$store.commit("setLoginStatus", false);
