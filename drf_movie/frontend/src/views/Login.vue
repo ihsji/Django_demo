@@ -73,22 +73,18 @@ export default{
                     localStorage.setItem('refreshToken',refreshToken);
                     localStorage.setItem('username',username);
 
-                //     新增代码，设置过期时间
+                //    设置过期时间
                     localStorage.setItem("expiredTime", Date.now() + 5 * 60 * 1000);
-                    showMessage("登陆成功","info",() => {
+                    this.$store.commit('setLoginStatus', true)
+                    const redirectAfterLogin = this.$route.query.jump
+                    const redirectUrl = redirectAfterLogin ? redirectAfterLogin : '/'
+                    showMessage('登录成功','info',()=>{
                         this.$router.push({
-                            name:'home',
-                        });
-                    });
+                            path: redirectUrl
+                        })
+                    })
                 })
-                    // this.$store.commit('setLoginStatus', true)
-                    // const redirectAfterLogin = this.$route.query.jump
-                    // const redirectUrl = redirectAfterLogin ? redirectAfterLogin : '/'
-                    // showMessage('登录成功','info',()=>{
-                    //     this.$router.push({
-                    //         path: redirectUrl
-                    //     })
-                    // })
+    
                 
                 .catch((error) => {
                     const errorData = error.response.data;

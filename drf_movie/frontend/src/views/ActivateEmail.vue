@@ -20,7 +20,7 @@
 
 <script>
 import Footer from "@/components/Footer.vue"
-import header from "@/components/Header.vue"
+import Header from "@/components/Header.vue"
 import showMessage from "@/utils/message";
 import axios from "axios";
 
@@ -36,10 +36,10 @@ export default{
                 token:token
             }
             axios
-                .post('/api/users/activation/',formData)
-                .then((response) => {
-                    showMessage('账号激活成功，请在登录页面登录','info',()=>{
-                        this.$route.push({name:'Login'})
+                .post('/api/users/activation/', formData)
+                .then( response => {
+                    showMessage('账号激活成功，请在登录页登录', 'info', ()=>{
+                        this.$route.push({name: 'Login'})
                     })
                 })
                 .catch(error => {

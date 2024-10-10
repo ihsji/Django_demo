@@ -9,6 +9,7 @@ import PasswordReset from "@/views/PasswordReset.vue"
 import store from '@/store'
 import Personal from '../views/Personal.vue'
 import ChangePassword from '../views/ChangePassword.vue'
+import Collect from "@/views/Collect.vue"
 
 const routes = [
   {//首页
@@ -62,6 +63,14 @@ const routes = [
       requireLogin: true
     }
   },
+  {//个人中心-跳转-我的收藏
+    path:"/collect",
+    name:"Collect",
+    component:Collect,
+    meta:{
+      requireLogin:true
+    },
+  },
   {
     path: '/about',
     name: 'about',
@@ -85,8 +94,10 @@ if(token){
 }
 //路由导航守卫
 router.beforeEach((to, from ,next)=>{
-  //如果访问的页面需要登陆，且未登录，跳转登录页
-  if(to.matched.some(record => record.meta.requireLogin) &&!store.state.isLogin ){
+  //如果已经登陆，则直接跳转到首页；如果访问的页面需要登陆，且未登录，跳转登录页
+  if (store.state.isLogin && (to.name === 'Login' || to.name === "Register")){
+    next({name:'home'})
+  }else if (to.matched.some(record => record.meta.requireLogin) && !store.state.isLogin){
     next({name:"Login",query:{jump:to.path}})
     //其他情况直接next
   }else{

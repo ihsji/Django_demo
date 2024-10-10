@@ -3,12 +3,14 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from movie import views
+from account import views as account_views
 
 # 创建默认路由器对象
 router = DefaultRouter()
 # 注册 movie 视图集到路由器中，并指定路径前缀为 'movie'
 router.register(r'movie', views.MovieViewSet)
 router.register(r'category',views.CategoryViewSet)
+router.register(r'collects', account_views.CollectViewSet, 'collect')
 
 # 定义 URL 路由列表
 urlpatterns = [

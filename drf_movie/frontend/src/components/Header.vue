@@ -72,7 +72,7 @@ import axios from 'axios'
 export default {
     name: 'Header',
     components:{ Category },
-    data(){
+    data:function(){
       return{keyword:"", username:"", showMenu:false, }
     },
     mounted(){
@@ -86,14 +86,14 @@ export default {
         this.$store.commit('setLoginStatus',true)
       }else if(refreshToken){
         axios
-        .post('/api/jwt/refresh/',{fefresh: refreshToken})
+        .post('/api/jwt/refresh/',{refresh: refreshToken})
         .then((response) => {
           console.log('执行refresh')
           const token = response.data.access
           localStorage.setItem('token',token)
           //更新过期时间
           const expiredTime = Date.now() +5 *60 *1000
-          localStorage.setItem("expireadTime",expiredTime)
+          localStorage.setItem("expiredTime",expiredTime)
           this.$store.commit('setLoginStatus',true)
         })
         .catch(error => {

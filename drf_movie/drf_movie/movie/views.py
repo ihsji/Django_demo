@@ -13,10 +13,12 @@ from rest_framework import mixins
 from rest_framework import viewsets
 from django_filters import rest_framework as filters
 from django_filters.rest_framework import DjangoFilterBackend
+from utils.permissions import IsAdminUserOrReadOnly
 
 # 从当前目录下导入Movie模型和MovieListSerializer序列化器
 from movie.models import Movie,Category
 from movie.serializers import MovieSerializer,CategorySerializer
+from utils.error import MovieError,UserError
 
 
 class MovieFilter(filters.FilterSet):
@@ -35,8 +37,10 @@ class MovieViewSet(viewsets.ModelViewSet):
     serializer_class = MovieSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class=MovieFilter
+    permission_classes = [IsAdminUserOrReadOnly]
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    permission_classes = [IsAdminUserOrReadOnly]
